@@ -1,19 +1,16 @@
 let videotag = undefined;
 let imagetag = undefined;
+let config = undefined;
 let listOfFileNames = [];
-
-let toggle = 0;
-// Loop timer 
-let loopTimer = 4000;
 
 startPresenter = async () =>
 {
     console.log("init");
     videotag = document.getElementById("videotag");
     imagetag = document.getElementById("imagetag");
-
+    config = await getFile("js/config.json")
     listOfFileNames = await populateNameArray('js/filenames.json');
-    setInterval(runPresenter, loopTimer);
+    setInterval(runPresenter, config["loop_timer"]);
 }
 
 runPresenter = () => {
@@ -46,3 +43,8 @@ populateNameArray = async (filename) => {
 }
 
 
+getFile = async (filename) => {
+    response = await fetch(filename);
+    json = await response.json();
+    return json;
+}
