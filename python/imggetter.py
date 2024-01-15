@@ -8,8 +8,10 @@ def downloadFile(url, newName, altName):
     filePostfix = url.split(".")[-1]
     newName = re.sub(" created by HattoriGraphics", "", newName)
     newName = re.sub(r"[^\w\-_\.]","_",newName)
+    
     if newName.strip() == "":
         newName = f"Hattori{altName}"
+        
     filename = f"../downloads/{newName}.{filePostfix}"
     
     with open(filename, mode="wb") as file:
